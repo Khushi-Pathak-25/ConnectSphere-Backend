@@ -1,0 +1,99 @@
+services:
+
+  # ── 1. Eureka Server (Service Registry) ─────────────────────────────────
+  # Must start first — all other services register here
+  - type: web
+    name: connectsphere-eureka
+    runtime: docker
+    dockerfilePath: ./eureka-server/Dockerfile
+    dockerContext: ./eureka-server
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  # ── 2. API Gateway (Single Entry Point) ─────────────────────────────────
+  # All frontend requests come here first
+  - type: web
+    name: connectsphere-gateway
+    runtime: docker
+    dockerfilePath: ./api-gateway/Dockerfile
+    dockerContext: ./api-gateway
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_URL
+        fromService:
+          name: connectsphere-eureka
+          type: web
+          property: hostport
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: INTERNAL_TOKEN
+        value: internal-service-token
+
+  # ── 3. Auth Service (Login, Register, JWT, OAuth2) ───────────────────────
+  - type: web
+    name: connectsphere-auth
+    runtime: docker
+    dockerfilePath: ./auth-service/Dockerfile
+    dockerContext: ./auth-service
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: OAUTH2_REDIRECT_URI
+        sync: false
+      - key: EUREKA_URL
+        fromService:
+          name: connectsphere-eureka
+          type: web
+          property: hostport
+
+  # ── 4. Post Service (Posts, Feed) ────────────────────────────────────────
+  - type: web
+    name: connectsphere-post
+    runtime: docker
+    dockerfilePath: ./post-service/Dockerfile
+    dockerContext: ./post-service
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: AUTH_SERVICE_URL
+        fromService:
+          name: connectsphere-auth
+          type: web
+          property: hostport
+      - key: EUREKA_URL
+        fromService:
+          name: connectsphere-eureka
+          type: web
+          property: hostport
