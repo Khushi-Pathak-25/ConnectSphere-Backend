@@ -33,6 +33,10 @@ media-service/uploads/
 */src/main/resources/application.yml
 */src/main/resources/application.properties
 
+# ── Local environment variables ───────────────────────────────────────────────
+.env
+.env.local
+
 # ── Node (root package-lock from sonar) ──────────────────────────────────────
 node_modules/
 package-lock.json
