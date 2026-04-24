@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/authdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: YOUR_DB_USERNAME
+    password: YOUR_DB_PASSWORD
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: YOUR_EMAIL
+    password: YOUR_APP_PASSWORD
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: YOUR_GOOGLE_CLIENT_ID
+            client-secret: YOUR_GOOGLE_CLIENT_SECRET
+            scope: [email, profile]
+            redirect-uri: http://localhost:8081/login/oauth2/code/google
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+        username: admin
+        password: admin123
+
+server:
+  port: 8081
+
+jwt:
+  secret: YOUR_JWT_SECRET_MIN_32_CHARS
+  expiration: 86400000
+
+app:
+  frontend:
+    url: http://localhost:3000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

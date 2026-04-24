@@ -1,0 +1,41 @@
+# ── Maven build output ──────────────────────────────────────────────────────
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# ── IDE files ────────────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.eclipse/
+.settings/
+.classpath
+.project
+.factorypath
+
+# ── OS files ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+build.log
+
+# ── Uploaded media files ─────────────────────────────────────────────────────
+media-service/uploads/
+
+# ── Sensitive configuration — never commit real credentials ──────────────────
+*/src/main/resources/application.yml
+*/src/main/resources/application.properties
+
+# ── Node (root package-lock from sonar) ──────────────────────────────────────
+node_modules/
+package-lock.json
+
+# ── Docker volumes ────────────────────────────────────────────────────────────
+mysql_data/
