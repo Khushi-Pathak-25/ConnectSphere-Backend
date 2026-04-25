@@ -1,7 +1,14 @@
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY pom.xml ./parent-pom.xml
+RUN mvn install:install-file -Dfile=parent-pom.xml \
+    -DgroupId=com.connectsphere \
+    -DartifactId=connectsphere-parent \
+    -Dversion=1.0.0 \
+    -Dpackaging=pom \
+    -q
+COPY post-service/pom.xml ./pom.xml
+COPY post-service/src ./src
 RUN mvn package -DskipTests -q
 
 FROM eclipse-temurin:21-jre-alpine
