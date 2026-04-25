@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: comment-service
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/commentdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+        username: admin
+        password: admin123
+
+server:
+  port: 8083
+
+post:
+  service:
+    url: ${POST_SERVICE_URL:http://localhost:8082}
+
+app:
+  frontend:
+    url: ${FRONTEND_URL:http://localhost:3000}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,env
+  endpoint:
+    health:
+      show-details: always
+info:
+  app:
+    name: comment-service
+    version: 1.0.0

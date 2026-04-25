@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: media-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/mediadb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: Khushi@8251082191
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+server:
+  port: 8087
+
+media:
+  upload:
+    dir: uploads/
+  max-image-size: 10485760
+  max-video-size: 104857600
+  purge:
+    interval-ms: 300000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

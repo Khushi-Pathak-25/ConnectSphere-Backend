@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: search-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/searchdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: Khushi@8251082191
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8088
+
+post:
+  service:
+    url: http://localhost:8082
+
+auth:
+  service:
+    url: http://localhost:8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

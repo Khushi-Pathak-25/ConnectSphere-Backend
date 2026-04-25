@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: notification-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/notificationdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: Khushi@8251082191
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: khushipathak257@gmail.com
+    password: abihgpukcvibribe
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+        username: admin
+        password: admin123
+
+server:
+  port: 8086
+
+auth:
+  service:
+    url: http://localhost:8081
+
+app:
+  frontend:
+    url: http://localhost:3000
+
+service:
+  internal:
+    token: internal-service-token
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,env
+  endpoint:
+    health:
+      show-details: always
+info:
+  app:
+    name: notification-service
+    version: 1.0.0

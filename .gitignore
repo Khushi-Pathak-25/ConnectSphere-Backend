@@ -30,7 +30,7 @@ build.log
 media-service/uploads/
 
 # ── Sensitive configuration — never commit real credentials ──────────────────
-*/src/main/resources/application.yml
+# application.yml is committed with env var placeholders (no real credentials)
 */src/main/resources/application.properties
 
 # ── Local environment variables ───────────────────────────────────────────────

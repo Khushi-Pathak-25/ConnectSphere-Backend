@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: admin-server
+
+  # Admin login credentials
+  security:
+    user:
+      name: admin
+      password: admin123
+
+server:
+  port: 9090
+
+# Each microservice registers itself here via Actuator
+# Services must have spring-boot-admin-starter-client dependency
+# OR we use Eureka discovery (simpler — no client needed)
