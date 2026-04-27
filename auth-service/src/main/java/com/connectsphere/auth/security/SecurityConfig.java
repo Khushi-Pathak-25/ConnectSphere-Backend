@@ -122,7 +122,10 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/auth/register", "/auth/login", "/auth/guest",
                     "/auth/forgot-password", "/auth/reset-password",
-                    "/auth/user/**", "/auth/search", "/error"
+                    "/auth/user/**", "/auth/search", "/error",
+                    "/swagger-ui/**", "/swagger-ui.html",
+                    "/v3/api-docs/**", "/v3/api-docs",
+                    "/actuator/**"
                 ).permitAll()
                 .anyRequest().authenticated())
             .exceptionHandling(e -> e
